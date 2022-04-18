@@ -75,5 +75,5 @@ mult_digit_d(X):-mult_digit_d(X,A),write(A).
 
 %17
 max_digit_nodiv3(0,M):-write(M),!.
-max_digit_nodiv3(X,M):- X1 is X div 10 ,X2 is X mod 10,((X2 mod 3 =\= 0, X2>M -> max_digit_nodiv3(X1,X2)); max_digit_nodiv3(X1,M)).
+max_digit_nodiv3(X,M):- X1 is X div 10 ,X2 is X mod 10,(X2 mod 3 =\= 0, X2>M -> max_digit_nodiv3(X1,X2));max_digit_nodiv3(X1,M).
 max_digit_nodiv3(X):-  max_digit_nodiv3(X,0).
