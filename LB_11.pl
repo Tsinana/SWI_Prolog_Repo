@@ -74,11 +74,21 @@ mult_digit_d(X,A):-X1 is X div 10,mult_digit_d(X1,A1),A is A1*(X mod 10).
 mult_digit_d(X):-mult_digit_d(X,A),write(A).
 
 %17
-max_digit_nodiv3_d(0,0):-!.
-max_digit_nodiv3_d(X,M):- X1 is X div 10 ,X2 is X mod 10, max_digit_nodiv3_d(X1,M1),((X2 mod 3 =\= 0, M1 < X2 -> M is X2);M is M1).
-max_digit_nodiv3_d(X):-  max_digit_nodiv3_d(X,M),write(M).
+max_digit_nodiv3(0,0):-!.
+max_digit_nodiv3(X,M):- X1 is X div 10 ,X2 is X mod 10, max_digit_nodiv3(X1,M1),((X2 mod 3 =\= 0, M1 < X2 -> M is X2);M is M1).
+max_digit_nodiv3(X):-  max_digit_nodiv3(X,M),write(M).
 
 %18
-max_digit_nodiv3(0,M):-write(M),!.
-max_digit_nodiv3(X,M):- X1 is X div 10 ,X2 is X mod 10,((X2 mod 3 =\= 0, X2>M -> max_digit_nodiv3(X1,X2)); max_digit_nodiv3(X1,M)).
-max_digit_nodiv3(X):-  max_digit_nodiv3(X,0).
+max_digit_nodiv3_d(0,M):-write(M),!.
+max_digit_nodiv3_d(X,M):- X1 is X div 10 ,X2 is X mod 10,((X2 mod 3 =\= 0, X2>M -> max_digit_nodiv3_d(X1,X2)); max_digit_nodiv3_d(X1,M)).
+max_digit_nodiv3_d(X):-  max_digit_nodiv3_d(X,0).
+
+%19
+fib(1,1):-!.
+fib(2,1):-!.
+fib(N,X):- N1 is N - 1, N2 is N - 2, fib(N1, X1), fib(N2, X2), X is X1 + X2.
+
+fib_d(_,_,N,N,X):-write(X),!.
+fib_d(A1,A2,N1,N,_):- B is A1+A2,N2 is N1+1,fib_d(A2,B,N2,N,B).
+fib_d(N,X):- fib_d(1,1,2,N,X).
+
