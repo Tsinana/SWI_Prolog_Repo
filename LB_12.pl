@@ -56,10 +56,7 @@ func_13(N,X,L,XX):- N1 is N-1,
     XX1 is (N+XX),func_13(N1,X,L,XX1).
 func_13(N,X):-lenght_digit(N,L), func_13(N,X,L,0).
 
-
-
-
-
+%-- -- -- List_fun -- -- --
 
 %read_list(+N,-List)
 read_list(0,[]):-!.
@@ -70,16 +67,30 @@ read_list(N,[H|T]):- read(H),
 write_list([]):-!.
 write_list([H|T]):- write(H),write(' '), write_list([T]).
 
-% 14. Дан целочисленный массив. Необходимо найти элементы,
-% расположенные перед последним минимальным
-%func_14()
+%list_min(+List,?X)
+list_min([],M,M):-!.
+list_min([H|T],X,M):-H<M,
+    list_min(T,X,H).
+list_min([_|T],X,M):- list_min(T,X,M).
+list_min([H|T],X):-list_min(T,X,H).
 
-%list_min(+List,?Min)
-list_min_rec([],_):-!.
-list_min_rec([H|T],M):- H<M,list_min_rec(T,M),!.
-list_min_rec([H|T],M):- H is H,list_min_rec(T,M).
-list_min([H|T],H):-list_min_rec([H|T],H),!.
-list_min(List,M):-list_min_rec(List,M).
+%concat1(+List1,+List2,-List3)
+concat1([],B,B):-!.
+concat1([H|T],B,[H|Tail]):- concat1(T,B,Tail).
+
+%list_find_qDigit(+List,+X,-Q)
+list_find_qDigit([],_,0):-!.
+list_find_qDigit([H|T],X,Q):- H is X,!,
+    list_find_qDigit(T,X,Q1),Q is Q1 +1.
+list_find_qDigit([_|T],X,Q):- list_find_qDigit(T,X,Q).
+
+% 14.
+%func_14(+List,-NewList)
+func_14([H|_],[],M,Qm):- Qm is 1, H is M,!.
+func_14([H|T],[H|Tn],M,Qm):-H is M,!,
+    Qm1 is Qm -1,func_14(T,Tn,M,Qm1).
+func_14([H|T],[H|Tn],M,Qm):-func_14(T,Tn,M,Qm).
+func_14(List,NewList):-list_min(List,M),list_find_qDigit(List,M,Qm),func_14(List,NewList,M,Qm).
 
 
 
