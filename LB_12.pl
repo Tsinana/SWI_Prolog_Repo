@@ -19,7 +19,7 @@ min_div_digit(1,1):-!.
 min_div_digit(0,_):- write('Duralei'),!,fail.
 min_div_digit(A,Div):- min_div_digit(A,Div,2).
 
-%lenght_digit(+A,-X)
+%lenght_digit(+A,?X)
 lenght_digit(0,0):- !.
 lenght_digit(A,X):- A1 is A div 10,lenght_digit(A1,X1),X is X1 +1.
 
@@ -39,7 +39,7 @@ rec_func_11_up(A,C,I):- I1 is I+1,rec_func_11_up(A,C,I1).
 func_11_up(A,Count):- rec_func_11_up(A,Count,2).
 
 % 12
-%func_12(+A,-X)
+%func_12(+A,?X)
 func_12(_,_,_,1):-!,fail.
 func_12(A,X,Div,I):- not(nod(A,I,1)),not(0 is (I mod Div)),!,
     X is I.
@@ -85,7 +85,7 @@ list_max([H|T],X):-list_max(T,X,H).
 concat1([],B,B):-!.
 concat1([H|T],B,[H|Tail]):- concat1(T,B,Tail).
 
-%list_find_qDigit(+List,+X,-Q)
+%list_find_qDigit(+List,+X,?Q)
 list_find_qDigit([],_,0):-!.
 list_find_qDigit([H|T],X,Q):- H is X,!,
     list_find_qDigit(T,X,Q1),Q is Q1 +1.
@@ -97,7 +97,7 @@ list_rev([],ListY,ListY,[]).
 list_rev([X|TX],ListR,ListY,[_|Bound]):- list_rev(TX,[X|ListR],ListY,Bound).
 
 %14
-%list_lenght(+List,-Q)
+%list_lenght(+List,?Q)
 list_lenght([],0):-!.
 list_lenght([_|T],Q):-list_lenght(T,Q1),Q is Q1+1.
 
@@ -129,9 +129,26 @@ func_16([H|T],L1,[H|Tn],L3,Max,Min,Fx,Fn):-Fx is 1,Fn is 0,
 func_16(List,NewList):-
     list_min(List,Min),list_max(List,Max),func_16(List,List1,List2,List3,Max,Min,1,1),list_rev(List2,ListR),concat1(List1,ListR,NewList1),concat1(NewList1,List3,NewList).
 
+% 17
+%func_17_check(+List,?C,+A,+B)
+func_17_check([],C,_,_):-!,C is 1.
+func_17_check([H|T],C,A,B):-H>=A,H=<B,!,func_17_check(T,C,A,B).
+func_17_check([_|T],_,A,B):-func_17_check(T,0,A,B).
+
+%func_17(+List,?X,+A,+B)
+func_17(List,X,A,B):-func_17_check(List,C,A,B),C is 1,!,
+    list_min(List,Min),list_find_qDigit(List,Min,Mq),X is Mq.
+func_17(_,_,_,_):-fail.
 
 
-
+% 18 целочисленный массив. Необходимо найти два наибольших элемента.
+%
+%
+% 19 Дан целочисленный массив. Найти количество чётных элементов
+%
+%
+% 20  Дан целочисленный массив и отрезок a..b. Необходимо найти
+% элементы, значение которых принадлежит этому отрезку.
 
 
 
