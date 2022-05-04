@@ -88,6 +88,7 @@ fib(1,1):-!.
 fib(2,1):-!.
 fib(N,X):- N1 is N - 1, N2 is N - 2, fib(N1, X1), fib(N2, X2), X is X1 + X2.
 
+%20
 fib_d(_,_,N,N,X):-write(X),!.
 fib_d(A1,A2,N1,N,_):- B is A1+A2,N2 is N1+1,fib_d(A2,B,N2,N,B).
 fib_d(N,X):- fib_d(1,1,2,N,X).
