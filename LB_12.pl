@@ -74,6 +74,13 @@ list_min([H|T],X,M):-H<M,
 list_min([_|T],X,M):- list_min(T,X,M).
 list_min([H|T],X):-list_min(T,X,H).
 
+%list_max(+List,?X)
+list_max([],M,M):-!.
+list_max([H|T],X,M):-H>M,
+    list_max(T,X,H).
+list_max([_|T],X,M):- list_max(T,X,M).
+list_max([H|T],X):-list_max(T,X,H).
+
 %concat1(+List1,+List2,-List3)
 concat1([],B,B):-!.
 concat1([H|T],B,[H|Tail]):- concat1(T,B,Tail).
@@ -84,13 +91,94 @@ list_find_qDigit([H|T],X,Q):- H is X,!,
     list_find_qDigit(T,X,Q1),Q is Q1 +1.
 list_find_qDigit([_|T],X,Q):- list_find_qDigit(T,X,Q).
 
-% 14.
-%func_14(+List,-NewList)
-func_14([H|_],[],M,Qm):- Qm is 1, H is M,!.
-func_14([H|T],[H|Tn],M,Qm):-H is M,!,
-    Qm1 is Qm -1,func_14(T,Tn,M,Qm1).
-func_14([H|T],[H|Tn],M,Qm):-func_14(T,Tn,M,Qm).
-func_14(List,NewList):-list_min(List,M),list_find_qDigit(List,M,Qm),func_14(List,NewList,M,Qm).
+%list_rev(?ListX,?ListY)
+list_rev(ListX,ListY):-list_rev(ListX,[],ListY,ListY).
+list_rev([],ListY,ListY,[]).
+list_rev([X|TX],ListR,ListY,[_|Bound]):- list_rev(TX,[X|ListR],ListY,Bound).
+
+%14
+%list_lenght(+List,-Q)
+list_lenght([],0):-!.
+list_lenght([_|T],Q):-list_lenght(T,Q1),Q is Q1+1.
+
+% 15
+%func_15(+List,-NewList)
+func_15([H|_],[],M,Qm):- Qm is 1, H is M,!.
+func_15([H|T],[H|Tn],M,Qm):-H is M,!,
+    Qm1 is Qm -1,func_15(T,Tn,M,Qm1).
+func_15([H|T],[H|Tn],M,Qm):-func_15(T,Tn,M,Qm).
+func_15(List,NewList):-list_min(List,M),list_find_qDigit(List,M,Qm),func_15(List,NewList,M,Qm).
+
+%16
+%func_16(+List,-NewList)
+func_16([],[],[],[],_,_,_,_):-!.
+
+func_16([H|T],[H|Tn],L2,L3,Max,Min,Fx,Fn):-H is Min,!,
+    Fn0 is Fn - 1,func_16(T,Tn,L2,L3,Max,Min,Fx,Fn0).
+func_16([H|T],[H|Tn],L2,L3,Max,Min,Fx,Fn):-Fn is 1,!,
+    func_16(T,Tn,L2,L3,Max,Min,Fx,Fn).
+
+func_16([H|T],L1,L2,[H|Tn],Max,Min,Fx,Fn):-H is Max,!,
+    Fx0 is Fx - 1,func_16(T,L1,L2,Tn,Max,Min,Fx0,Fn).
+func_16([H|T],L1,L2,[H|Tn],Max,Min,Fx,Fn):-Fx is 0,!,
+    func_16(T,L1,L2,Tn,Max,Min,Fx,Fn).
+
+func_16([H|T],L1,[H|Tn],L3,Max,Min,Fx,Fn):-Fx is 1,Fn is 0,
+    func_16(T,L1,Tn,L3,Max,Min,Fx,Fn).
+
+func_16(List,NewList):-
+    list_min(List,Min),list_max(List,Max),func_16(List,List1,List2,List3,Max,Min,1,1),list_rev(List2,ListR),concat1(List1,ListR,NewList1),concat1(NewList1,List3,NewList).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
