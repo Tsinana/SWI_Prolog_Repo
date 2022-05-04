@@ -140,10 +140,14 @@ func_17(List,X,A,B):-func_17_check(List,C,A,B),C is 1,!,
     list_min(List,Min),list_find_qDigit(List,Min,Mq),X is Mq.
 func_17(_,_,_,_):-fail.
 
+% 18
+%list_max(+List,?X,?Y)
+func_18([],M,M1,M,M1):-!.
+func_18([H|T],X1,X2,M,_):-H>M,
+    func_18(T,X1,X2,H,M).
+func_18([_|T],X1,X2,M,M2):- func_18(T,X1,X2,M,M2).
+func_18([H|T],X1,X2):-func_18(T,X1,X2,H,0).
 
-% 18 целочисленный массив. Необходимо найти два наибольших элемента.
-%
-%
 % 19 Дан целочисленный массив. Найти количество чётных элементов
 %
 %
