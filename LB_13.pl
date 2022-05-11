@@ -13,6 +13,15 @@ list_revolution1([X|T],ListR,List2,[_|Tail]):- list_revolution1(T,[X|ListR],List
 % 3 Построить предикат p(Sublist,List), который возвращает true, если
 % элементы Sublist встречается в List в том же порядке. (те. Sublist
 % мб. меньше List)
-% p(+Sublist,+List)
+% p(?Sublist,+List)
 p1([],_).
 p1([H|Ts],[H|T]):-p1(Ts,T).
+
+
+%  4 Построить предикат, который удаляет элемент с заданным номером из
+% списка.
+% list_delete_index(+List1,+X,List2)
+list_delete_index(List1,X,List2):- list_delete_index(List1,X,List2,0).
+list_delete_index([_|T],X,T,X).
+list_delete_index([H|T],X,[H|Tn],Index):-
+    Index1 is Index + 1,list_delete_index(T,X,Tn,Index1).
