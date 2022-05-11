@@ -20,8 +20,15 @@ p1([H|Ts],[H|T]):-p1(Ts,T).
 
 %  4 Построить предикат, который удаляет элемент с заданным номером из
 % списка.
-% list_delete_index(+List1,+X,List2)
+% list_delete_index(+List1,+X,?List2)
 list_delete_index(List1,X,List2):- list_delete_index(List1,X,List2,0).
 list_delete_index([_|T],X,T,X).
 list_delete_index([H|T],X,[H|Tn],Index):-
     Index1 is Index + 1,list_delete_index(T,X,Tn,Index1).
+
+% 5 Построить предикат, который удаляет все элементы, равные
+% данному.
+% list_delete_digit(+List1,+X,?List2)
+list_delete_digit([],_,[]).
+list_delete_digit([H|T],H,List2):- list_delete_digit(T,H,List2).
+list_delete_digit([H|T],X,[H|Tn]):-list_delete_digit(T,X,Tn).
