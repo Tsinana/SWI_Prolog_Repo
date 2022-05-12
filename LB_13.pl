@@ -34,7 +34,15 @@ concat1([H|T],B,[H|Tn]):-concat1(T,B,Tn).
 
 % list_single_elemets(+List)
 list_single_elemets(List):-list_single_elemets(List,[]).
-list_single_elemets([],_):-true,!.
+list_single_elemets([],_):-true.
 list_single_elemets([H|T],List2):-not(list_find(List2,H)),!,
     concat1([H],List2,ListNew),list_single_elemets(T,ListNew).
 list_single_elemets(_,_):-false.
+
+%11
+%arr_min(+Arr,?X)
+arr_min([],X,X):-!.
+arr_min([H|T],M,X):-H<M,!,
+    arr_min(T,H,X).
+arr_min([_|T],M,X):-arr_min(T,M,X).
+arr_min([H|T],X):-arr_min(T,H,X).
