@@ -83,3 +83,4 @@ func_1(_,_,_):-false.
 func_222222222222222222222(Ex,El):-list_lenght1(Ex,L),
     permutation1(Ex,L,[],EX),func_1(EX,El).
 
+%FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFProlodCK
