@@ -139,3 +139,33 @@ per_16:- List=[_,_,_],
     not(in_list(List,[tokar,sSemen])),
     not(in_list(List,[slecar,bBoris])),
     write(List),nl.
+
+% 17 per_17:- List=[_,_,_,_],
+    el_no(List,1,[milk,_]),
+    el_no(List,2,[water,_]),
+    el_no(List,3,[cola,_]),
+    el_no(List,4,[kvas,_]),
+    in_list(List,[_,butilka]),
+    in_list(List,[_,stakan]),
+    in_list(List,[_,kuvshin]),
+    in_list(List,[_,banka]),
+    not(in_list(List,[water,butilka])),
+    not(in_list(List,[milk,butilka])),
+    not(in_list(List,[cola,banka])),
+    not(in_list(List,[water,banka])),
+    not(in_list(List,[kvas,kuvshin])),
+    (next_to([kvas,_],[cola,_],List);next_to([_,kuvshin],[cola,_],List)),
+    (next_to([milk,_],[_,stakan],List);next_to([_,banka],[_,stakan],List)),
+     write(List).
+
+
+
+
+
+
+
+
+
+
+
+
