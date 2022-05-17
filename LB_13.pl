@@ -83,4 +83,31 @@ func_1(_,_,_):-false.
 func_222222222222222222222(Ex,El):-list_lenght1(Ex,L),
     permutation1(Ex,L,[],EX),func_1(EX,El).
 
-%FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFProlodCK
+% *fire*  i'm fine  *fire*    *fire*
+
+in_list([El|_],El).
+in_list([_|T],El):-in_list(T,El).
+sprava_next(_,_,[_]):-fail.
+sprava_next(A,B,[A|[B|_]]).
+sprava_next(A,B,[_|List]):-sprava_next(A,B,List).
+sleva_next(_,_,[_]):-fail.
+sleva_next(A,B,[B|[A|_]]).
+sleva_next(A,B,[_|List]):-sleva_next(A,B,List).
+next_to(A,B,List):-sprava_next(A,B,List).
+next_to(A,B,List):-sleva_next(A,B,List).
+el_no(List,Num,El):-el_no(List,Num,1,El).
+el_no([H|_],Num,Num,H):-!.
+el_no([_|Tail],Num,Ind,El):-Ind1 is Ind+1,el_no(Tail,Num,Ind1,El).
+
+% 14
+pr_commun:- Friends=[_,_,_],
+in_list(Friends,[blond,_]),
+in_list(Friends,[brunt,_]),
+in_list(Friends,[orange,_]),
+in_list(Friends,[_,rishow]),
+in_list(Friends,[_,below]),
+in_list(Friends,[_,chernov]),
+(in_list(Friends,[blond,rishow]);in_list(Friends,[blond,chernov])),
+(in_list(Friends,[brunt,rishow]);in_list(Friends,[brunt,below])),
+(in_list(Friends,[orange,below]);in_list(Friends,[orange,chernov])),
+write(Friends).
