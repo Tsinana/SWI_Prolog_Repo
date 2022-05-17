@@ -140,7 +140,8 @@ per_16:- List=[_,_,_],
     not(in_list(List,[slecar,bBoris])),
     write(List),nl.
 
-% 17 per_17:- List=[_,_,_,_],
+% 17
+per_17:- List=[_,_,_,_],
     el_no(List,1,[milk,_]),
     el_no(List,2,[water,_]),
     el_no(List,3,[cola,_]),
@@ -157,6 +158,27 @@ per_16:- List=[_,_,_],
     (next_to([kvas,_],[cola,_],List);next_to([_,kuvshin],[cola,_],List)),
     (next_to([milk,_],[_,stakan],List);next_to([_,banka],[_,stakan],List)),
      write(List).
+
+% 18
+per_18:- List=[_,_,_,_],
+    el_no(List,1,[voronov,_]),
+    el_no(List,2,[pavlov,_]),
+    el_no(List,3,[leva,_]),
+    el_no(List,4,[saharov,_]),
+    in_list(List,[_,dancer]),
+    in_list(List,[_,painter]),
+    in_list(List,[_,singer]),
+    in_list(List,[_,writer]),
+    not(in_list(List,[pavlov,painter])),
+    not(in_list(List,[pavlov,writer])),
+    not(in_list(List,[voronov,singer])),
+    not(in_list(List,[leva,singer])),
+    not(in_list(List,[leva,painter])),
+    not(in_list(List,[saharov,writer])),
+    not(in_list(List,[voronov,writer])),
+    write(List).
+
+
 
 
 
