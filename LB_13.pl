@@ -178,7 +178,11 @@ per_18:- List=[_,_,_,_],
     not(in_list(List,[voronov,writer])),
     write(List).
 
-
+% 19
+per_19:- list=[_,_,_]
+    el_no(List,1,[michael,aust,basket]),
+    el_no(List,2,[simon,iz,kr]),
+    el_no(List,3,[bob,usa,tennis]).
 
 
 
