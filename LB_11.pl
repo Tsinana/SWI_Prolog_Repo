@@ -7,6 +7,7 @@ man(svyatoslav).
 man(dobrozhir).
 man(bogomil).
 man(zlatomir).
+man(misha).
 
 woman(goluba).
 woman(lubomila).
@@ -49,7 +50,7 @@ parent(zhdana,zdislava).
 parent(zhdana,zlatomir).
 
 %11
-father(X):-parent(Y,X),write(Y),!.
+father(X):-parent(Y,X),man(Y),write(Y),!.
 father(X,Y):- parent(X,Y),man(X).
 
 %12

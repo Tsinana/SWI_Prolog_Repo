@@ -128,3 +128,14 @@ per_15:- List=[_,_,_],
     in_list(List,[aAnna,A,A]),
     write(List).
 
+% 16
+per_16:- List=[_,_,_],
+    el_no(List,1,[slecar,_]),
+    el_no(List,2,[tokar,_]),
+    el_no(List,3,[svarshik,_]),
+    in_list(List,[_,bBoris]),
+    in_list(List,[_,iIvan]),
+    in_list(List,[_,sSemen]),
+    not(in_list(List,[tokar,sSemen])),
+    not(in_list(List,[slecar,bBoris])),
+    write(List),nl.
