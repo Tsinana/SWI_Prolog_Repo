@@ -179,10 +179,56 @@ per_18:- List=[_,_,_,_],
     write(List).
 
 % 19
-per_19:- list=[_,_,_]
+per_19:- List=[_,_,_],
     el_no(List,1,[michael,aust,basket]),
     el_no(List,2,[simon,iz,kr]),
-    el_no(List,3,[bob,usa,tennis]).
+    el_no(List,3,[bob,usa,tennis]),
+    write(List).
+
+% 20
+per_20:- List=[_,_,_,_,_],
+    el_no(List,1,[andrey,_]),
+    el_no(List,2,[dimon,_]),
+    el_no(List,3,[boria,_]),
+    el_no(List,4,[viktor,_]),
+    el_no(List,5,[georg,_]),
+    in_list(List,[_,1]),
+    in_list(List,[_,0]),
+
+    ( in_list(List,[andrey,1]),
+      in_list(List,[dimon,1]),
+      in_list(List,[boria,0])
+    ;
+      in_list(List,[dimon,0]),
+      in_list(List,[boria,1]),
+      in_list(List,[viktor,0])
+    ),
+
+    ( in_list(List,[viktor,1]),
+      in_list(List,[andrey,0])
+    ;
+      in_list(List,[viktor,0]),
+      in_list(List,[andrey,1])
+    ),
+
+    ( in_list(List,[dimon,1]),
+      in_list(List,[georg,0])
+    ;
+      in_list(List,[dimon,0]),
+      in_list(List,[georg,1])
+    ),
+
+    ( in_list(List,[boria,0]),
+      in_list(List,[dimon,1]),
+      in_list(List,[viktor,0])
+    ;
+      in_list(List,[georg,1]),
+      in_list(List,[dimon,0]),
+      in_list(List,[viktor,1])
+    ),
+
+    write(List).
+
 
 
 
