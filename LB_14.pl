@@ -70,6 +70,9 @@ l_el(List,Id,El):- l_el(List,0,Id,El).
 l_el([El|_],I,I,El):- !.
 l_el([_|T],I,Id,El):- I1 is I + 1, l_el(T,I1,Id,El).
 
+l_el_s(List,Id,El):- l_el_s(List,0,Id,El).
+l_el_s([El|_],I,I,El).
+l_el_s([_|T],I,Id,El):- I1 is I + 1, l_el_s(T,I1,Id,El).
 
 % 11
 func_11:-string_read(Str,N),string_write(Str),write(', '),string_write(Str),write(', '),string_write(Str),write(', '),write(N).
@@ -104,7 +107,7 @@ func_13:-
 %14
 func_14:-
     string_read(Str,N),func_14(Str,N).
-func_14(Srt,N):-
+func_14(Str,N):-
     N>5,!,
     l_el(Str,0,El1),put(El1),
     l_el(Str,1,El2),put(El2),
@@ -117,4 +120,9 @@ func_14(_,I,I):-!.
 func_14(Str,N,I):-
     l_el(Str,0,El1),put(El1),I1 is I + 1,func(Str,N,I1).
 
-
+%15
+func_15(I1):-
+    string_read(Str,N),
+    N1 is N - 1,
+    l_el(Str,N1,El),
+    l_el_s(Str,I1,El).
