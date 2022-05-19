@@ -76,6 +76,9 @@ l_min([],M,M):- !.
 l_min([H|T],M,Min):- H < M,!,l_min(T,H,Min).
 l_min([_|T],M,Min):- l_min(T,M,Min).
 
+% list_find(+L,?X)
+list_find([H|_],H).
+list_find([_|T],X):-list_find(T,X).
 
 %list_element
 %l_el(+List,?Id,?El)
@@ -157,3 +160,13 @@ func_16:-
     list_read(List),list_min_lenght_word(List,Word),seen,
     tell('C:/GitHub/SWI_Prolog_Repo/Fails/task_2_1_answer.txt'),string_write(Word),told.
 
+% 17
+list_qauntity_string_without_space(List,Qu):- l_qsws(List,0,Qu).
+l_qsws([],Q,Q):-!.
+l_qsws([H|T],Q,Qu):-not(list_find(H,32)),!,Q1 is Q + 1,l_qsws(T,Q1,Qu).
+l_qsws([_|T],Q,Qu):-l_qsws(T,Q,Qu).
+
+func_17:-
+    see('C:/GitHub/SWI_Prolog_Repo/Fails/task_2_2.txt'),
+    list_read(List),list_qauntity_string_without_space(List,Q),seen,
+    tell('C:/GitHub/SWI_Prolog_Repo/Fails/task_2_2_answer.txt'),write(Q),told.
