@@ -15,6 +15,7 @@ list_all_string_write([H|T]):-
 string_read(Str):- string_read(Str,_).
 string_read(Str,N):-get0(Char),s_read(Char,Str,[],N,0).
 s_read(46,Str,Str,N,N):-!.
+s_read(-1,Str,Str,N,N):-!.
 s_read(10,Str,Str,N,N):-!.
 s_read(Char,Str,NowStr,N,I):-
     I1 is I+1,
@@ -25,6 +26,7 @@ s_read(Char,Str,NowStr,N,I):-
 string_read_for_list(Str,N,IsLast):- get0(Char),s_read_l(Char,Str,[],N,0,IsLast).
 s_read_l(46,Str,Str,N,N,1):-!.
 s_read_l(10,Str,Str,N,N,0):-!.
+s_read_l(-1,Str,Str,N,N,1):-!.
 s_read_l(Char,Str,NowStr,N,I,IsLast):-
     I1 is I+1,append(NowStr,[Char],NowStr1),
     get0(Char1),
@@ -38,6 +40,10 @@ list_read(Cur_list,List,0):-
     string_read_for_list(Str,_,IsLast),
     append(Cur_list,[Str],C_l),
     list_read(C_l,List,IsLast).
+
+string_lenght(A,L):-s_l(A,0,L).
+s_l([],I,I):-!.
+s_l([_|T],I,L):-I1 is I + 1,s_l(T,I1,L).
 
 string_compare([],[]):-true,!.
 string_compare([H|T],[H|TN]):-!,string_compare(T,TN).
@@ -61,9 +67,15 @@ l_qsil([_|T],Str,Q,Qu):- l_qsil(T,Str,Q,Qu).
 %list_max(+List,?Max)
 list_max([H|T],Max):- l_max(T,H,Max).
 l_max([],M,M):- !.
-
 l_max([H|T],M,Max):- H > M,!,l_max(T,H,Max).
 l_max([_|T],M,Max):- l_max(T,M,Max).
+
+%list_min(+List,?Min)
+list_min([H|T],Min):- l_min(T,H,Min).
+l_min([],M,M):- !.
+l_min([H|T],M,Min):- H < M,!,l_min(T,H,Min).
+l_min([_|T],M,Min):- l_min(T,M,Min).
+
 
 %list_element
 %l_el(+List,?Id,?El)
@@ -129,3 +141,19 @@ func_15(Str,N):-
     l_el(Str,N1,El),
     l_el_s(Str,I1,El),
     write(I1).
+
+% 16
+list_min_lenght_word(List,Word):- l_mlw(List,[],[],Word).
+l_mlw([],LW,LI,Word):-list_min(LI,Min),l_el(LI,Id,Min),l_el(LW,Id,Word).
+l_mlw([H|T],LW,LI,Word):-
+    string_lenght(H,A),
+    list_without_string([H|T],H,NL),
+    append(LW,[H],LW1),
+    append(LI,[A],LI1),
+    l_mlw(NL,LW1,LI1,Word).
+
+func_16:-
+    see('C:/GitHub/SWI_Prolog_Repo/Fails/task_2_1.txt'),
+    list_read(List),list_min_lenght_word(List,Word),seen,
+    tell('C:/GitHub/SWI_Prolog_Repo/Fails/task_2_1_answer.txt'),string_write(Word),told.
+
