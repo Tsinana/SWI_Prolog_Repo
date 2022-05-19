@@ -61,6 +61,7 @@ l_qsil([_|T],Str,Q,Qu):- l_qsil(T,Str,Q,Qu).
 %list_max(+List,?Max)
 list_max([H|T],Max):- l_max(T,H,Max).
 l_max([],M,M):- !.
+
 l_max([H|T],M,Max):- H > M,!,l_max(T,H,Max).
 l_max([_|T],M,Max):- l_max(T,M,Max).
 
@@ -121,8 +122,10 @@ func_14(Str,N,I):-
     l_el(Str,0,El1),put(El1),I1 is I + 1,func(Str,N,I1).
 
 %15
-func_15(I1):-
-    string_read(Str,N),
+func_15:-
+    string_read(Str,N),func_15(Str,N).
+func_15(Str,N):-
     N1 is N - 1,
     l_el(Str,N1,El),
-    l_el_s(Str,I1,El).
+    l_el_s(Str,I1,El),
+    write(I1).
