@@ -14,7 +14,7 @@ list_all_string_write([H|T]):-
 
 string_read(Str):- string_read(Str,_).
 string_read(Str,N):-get0(Char),s_read(Char,Str,[],N,0).
-s_read(-1,Str,Str,N,N):-!.
+s_read(46,Str,Str,N,N):-!.
 s_read(10,Str,Str,N,N):-!.
 s_read(Char,Str,NowStr,N,I):-
     I1 is I+1,
@@ -23,7 +23,7 @@ s_read(Char,Str,NowStr,N,I):-
     s_read(Char1,Str,NowStr1,N,I1).
 
 string_read_for_list(Str,N,IsLast):- get0(Char),s_read_l(Char,Str,[],N,0,IsLast).
-s_read_l(-1,Str,Str,N,N,1):-!.
+s_read_l(46,Str,Str,N,N,1):-!.
 s_read_l(10,Str,Str,N,N,0):-!.
 s_read_l(Char,Str,NowStr,N,I,IsLast):-
     I1 is I+1,append(NowStr,[Char],NowStr1),
@@ -31,6 +31,7 @@ s_read_l(Char,Str,NowStr,N,I,IsLast):-
     s_read_l(Char1,Str,NowStr1,N,I1,IsLast).
 
 list_read(List):-
+    write('Vvedite slova 4ere3 enter. stop - .'),nl,
     string_read_for_list(Str,_,IsLast),list_read([Str],List,IsLast).
 list_read(List,List,1):-!.
 list_read(Cur_list,List,0):-
@@ -51,3 +52,50 @@ count_words([_|T],K,0):- count_words(T,K,0).
 
 func_12:- string_read(Str),count_words(Str,Quantity),write(Quantity).
 
+% 13
+string_compare([],[]):-true,!.
+string_compare([H|T],[H|TN]):-!,string_compare(T,TN).
+string_compare(_,_):-false.
+
+list_without_string(List,Str,NewList):- l_ws(List,Str,[],NewList).
+l_ws([],_,A,A):-!.
+l_ws([H|T],H,List,NewList):- !,l_ws(T,H,List,NewList).
+l_ws([H|T],Str,List,NewList):-
+    append(List,[H],List1),
+    l_ws(T,Str,List1,NewList).
+
+list_quantity_string_in_list(List,Str,Q):-l_qsil(List,Str,0,Q).
+l_qsil([],_,Q,Q):-!.
+l_qsil([H|T],Str,Q,Qu):-
+    string_compare(H,Str),!,
+    Q1 is Q + 1,
+    l_qsil(T,Str,Q1,Qu).
+l_qsil([_|T],Str,Q,Qu):- l_qsil(T,Str,Q,Qu).
+
+%list_max(+List,?Max)
+list_max([H|T],Max):- l_max(T,H,Max).
+l_max([],M,M):- !.
+l_max([H|T],M,Max):- H > M,!,l_max(T,H,Max).
+l_max([_|T],M,Max):- l_max(T,M,Max).
+
+%list_element
+%l_el(+List,?Id,?El)
+l_el(List,Id,El):- l_el(List,0,Id,El).
+l_el([El|_],I,I,El):- !.
+l_el([_|T],I,Id,El):- I1 is I + 1, l_el(T,I1,Id,El).
+
+%list_the_most_popular_word(+List,-Str)
+list_the_most_popular_word(List,Str):- s_mpw(List,[],[],Str).
+
+%s_mpw(List,ListStr,ListId,String)
+s_mpw([],LS,LI,Str):- list_max(LI,Max),l_el(LI,Id,Max),l_el(LS,Id,Str).
+s_mpw([H|T],LS,LI,Str):-
+    list_quantity_string_in_list([H|T],H,Q),
+    list_without_string([H|T],H,NL),
+    append(LS,[H],LS1),
+    append(LI,[Q],LI1),
+    s_mpw(NL,LS1,LI1,Str).
+
+func_13:-
+    list_read(List),
+    list_the_most_popular_word(List,Str),string_write(Str).
