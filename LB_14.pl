@@ -224,3 +224,31 @@ func_19:-
     list_read(List),seen,
     list_the_most_popular_word(List,Str),
     tell('C:/GitHub/SWI_Prolog_Repo/Fails/task_2_4_answer.txt'),string_write(Str),told.
+
+%20
+
+
+%list_the_most_popular_word(+List,-Str)
+list_solo_words(List,L):- l_sw(List,[],[],L).
+
+%l_sw(List,ListStr,ListId,NewList)
+l_sw([],LS,LI,L):- l_sw(LS,LI,L).
+l_sw([H|T],LS,LI,L):-
+    list_quantity_string_in_list([H|T],H,Q),
+    list_without_string([H|T],H,NL),
+    append(LS,[H],LS1),
+    append(LI,[Q],LI1),
+    l_sw(NL,LS1,LI1,L).
+l_sw([],[],[]):- !.
+l_sw([H|T],[HH|TT],L):-
+    1 is HH, !,
+    l_sw(T,TT,L1),
+    append(L1,[H],L).
+l_sw([_|T],[_|TT],L):-l_sw(T,TT,L).
+
+
+func_20:-
+    see('C:/GitHub/SWI_Prolog_Repo/Fails/task_2_5.txt'),
+    list_read(List),seen,
+    list_solo_words(List,Str),
+    tell('C:/GitHub/SWI_Prolog_Repo/Fails/task_2_5_answer.txt'),list_write(Str),told.
