@@ -218,3 +218,9 @@ func_18([H|T],SR,L,NL):-
 func_18([_|T],SR,L,NL):- func_18(T,SR,L,NL).
 
 %19
+
+func_19:-
+    see('C:/GitHub/SWI_Prolog_Repo/Fails/task_2_4.txt'),
+    list_read(List),seen,
+    list_the_most_popular_word(List,Str),
+    tell('C:/GitHub/SWI_Prolog_Repo/Fails/task_2_4_answer.txt'),string_write(Str),told.
