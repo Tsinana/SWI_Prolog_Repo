@@ -39,20 +39,6 @@ list_read(Cur_list,List,0):-
     append(Cur_list,[Str],C_l),
     list_read(C_l,List,IsLast).
 
-% 11
-func_11:-string_read(Str,N),string_write(Str),write(', '),string_write(Str),write(', '),string_write(Str),write(', '),write(N).
-
-% 12 without 'space'
-count_words(A,K):-count_words(A,K,1).
-count_words([],0,_):-!.
-count_words([32|T],K,1):- !, count_words(T,K,1).
-count_words([32|T],K,0):- !, count_words(T,K,1).
-count_words([_|T],K,1):- !, count_words(T,K1,0),K is K1 + 1.
-count_words([_|T],K,0):- count_words(T,K,0).
-
-func_12:- string_read(Str),count_words(Str,Quantity),write(Quantity).
-
-% 13
 string_compare([],[]):-true,!.
 string_compare([H|T],[H|TN]):-!,string_compare(T,TN).
 string_compare(_,_):-false.
@@ -84,6 +70,21 @@ l_el(List,Id,El):- l_el(List,0,Id,El).
 l_el([El|_],I,I,El):- !.
 l_el([_|T],I,Id,El):- I1 is I + 1, l_el(T,I1,Id,El).
 
+
+% 11
+func_11:-string_read(Str,N),string_write(Str),write(', '),string_write(Str),write(', '),string_write(Str),write(', '),write(N).
+
+% 12 without 'space'
+count_words(A,K):-count_words(A,K,1).
+count_words([],0,_):-!.
+count_words([32|T],K,1):- !, count_words(T,K,1).
+count_words([32|T],K,0):- !, count_words(T,K,1).
+count_words([_|T],K,1):- !, count_words(T,K1,0),K is K1 + 1.
+count_words([_|T],K,0):- count_words(T,K,0).
+
+func_12:- string_read(Str),count_words(Str,Quantity),write(Quantity).
+
+% 13
 %list_the_most_popular_word(+List,-Str)
 list_the_most_popular_word(List,Str):- s_mpw(List,[],[],Str).
 
@@ -99,3 +100,21 @@ s_mpw([H|T],LS,LI,Str):-
 func_13:-
     list_read(List),
     list_the_most_popular_word(List,Str),string_write(Str).
+
+%14
+func_14:-
+    string_read(Str,N),func_14(Str,N).
+func_14(Srt,N):-
+    N>5,!,
+    l_el(Str,0,El1),put(El1),
+    l_el(Str,1,El2),put(El2),
+    l_el(Str,2,El3),put(El3),
+    l_el(Str,3,El4),put(El4),
+    l_el(Str,4,El5),put(El5),
+    l_el(Str,5,El6),put(El6).
+func_14(Str,N):- func_14(Str,N,1).
+func_14(_,I,I):-!.
+func_14(Str,N,I):-
+    l_el(Str,0,El1),put(El1),I1 is I + 1,func(Str,N,I1).
+
+
